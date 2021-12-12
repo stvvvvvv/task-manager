@@ -6,6 +6,7 @@ import { initializeApp } from "firebase/app";
 import 'firebase/auth'
 import 'firebase/database'
 
+import './assets/styles/re.scss'
 
 const firebaseConfig = {
   apiKey: "AIzaSyBROVFEm8pdLbOfRAyS0TRD_sYK_9jQ4vw",

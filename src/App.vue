@@ -1,16 +1,34 @@
 <script setup>
+import Sidebar from './components/Sidebar.vue'
+// import { storeToRefs } from 'pinia'
+// import { userAuthStore } from '../src/store/userAuth'
+// const mainStore = userAuthStore()
+// const { user } = storeToRefs(mainStore)
+
 </script>
 
 <template>
+<main class="main">
+  <Sidebar/>
+  <div class="content">
+    <section>
+      <h1>Hello</h1>
+    </section>
+    <section>
+      <h1>World</h1>
+    </section>
+  </div>
+</main>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style lang="scss">
+.main {
+  display: flex;
+}
+.content {
+  margin-left: 200px;
+}
+section {
+  height: 100vh;
 }
 </style>
