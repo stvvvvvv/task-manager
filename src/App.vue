@@ -10,14 +10,7 @@ import Sidebar from './components/Sidebar.vue'
 <template>
 <main class="main">
   <Sidebar/>
-  <div class="content">
-    <section>
-      <h1>Hello</h1>
-    </section>
-    <section>
-      <h1>World</h1>
-    </section>
-  </div>
+  <router-view></router-view>
 </main>
 </template>
 
