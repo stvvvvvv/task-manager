@@ -1,0 +1,71 @@
+.nav {
+    position: fixed;
+    background-color: $main-gray-light;
+    width: 200px;
+    &__container {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        max-height: 40px;
+    }
+    &__list {
+        height: 100vh;
+    }
+    &__item {
+        width: 140px;
+        min-width: 140px;
+        margin: 10px 30px 0 30px;
+        &:first-child {
+            margin-top: 20px;
+        }
+    }
+    &__link {
+        display: block;
+        padding: 8px;
+        font-size: 1.6rem;
+        font-weight: 100;
+        color: $text-gray-dark;
+        background-color: $secondary-gray-light;
+        border-radius: 10px;
+        text-decoration: none;
+    }
+    &__dropdown {
+        margin-top: 18px;
+        margin-left: -23px;
+        color: $text-gray-dark;
+        transition: 0.4s ease all;
+        cursor: pointer;
+        &-active {
+            transform: rotate(180deg);
+        }
+    }
+    &__tasks {
+        max-height: 0px;
+        opacity: 0;
+        transition: 0.4s ease all;
+        &-active {
+            max-height: 100%;
+            height: auto;
+            opacity: 1;
+        }
+        &__item {
+            margin: 5px 30px;
+            font-size: 1.4rem;
+            color: $text-gray-dark;
+            &:not(:nth-last-child(2)) {
+                border-bottom: 1px solid $secondary-gray-dark;
+            }
+        }
+        &__add {
+            margin-right: 30px;
+            margin-left: 30px;
+            padding: 4px;
+            text-align: center;
+            font-size: 14px;
+            background-color: $main-green;
+            color: $secondary-black;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+    }
+}

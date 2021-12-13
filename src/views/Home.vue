@@ -3,12 +3,14 @@
 
 <template>
   <div class="content">
-    <section>
-      <h1>Hello</h1>
-    </section>
-    <section>
-      <h1>World</h1>
-    </section>
+    <div class="container">
+      <section>
+        <h1>Привет</h1>
+      </section>
+      <section>
+        <h1>World</h1>
+      </section>
+    </div>
   </div>
 </template>
 

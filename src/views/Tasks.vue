@@ -3,8 +3,8 @@
 
 <template>
 <div class="content">
-  <h1>
-    Tasks
-  </h1>
+  <div class="container">
+    <h1>Задачи</h1>
+  </div>
 </div>
 </template>
