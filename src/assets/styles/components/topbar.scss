@@ -1,0 +1,10 @@
+.topbar {
+    position: fixed;
+    top: -0px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 30px;
+    background-color: $secondary-gray-dark;
+    z-index: 2;
+}

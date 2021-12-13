@@ -1,21 +1,26 @@
 <script setup>
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-import HelloWorld from './components/HelloWorld.vue'
+import Sidebar from './components/Sidebar.vue'
+import Topbar from './components/Topbar.vue'
+// import { storeToRefs } from 'pinia'
+// import { userAuthStore } from '../src/store/userAuth'
+// const mainStore = userAuthStore()
+// const { user } = storeToRefs(mainStore)
+
 </script>
 
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + Vite" />
+<main class="main">
+  <Topbar/>
+  <div class="main__wrapper">
+    <Sidebar/>
+    <router-view></router-view>
+  </div>
+</main>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style lang="scss">
+section {
+  padding-top: 75px;
+  height: 100vh;
 }
 </style>
