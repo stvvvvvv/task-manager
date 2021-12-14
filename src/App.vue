@@ -1,10 +1,15 @@
 <script setup>
 import Sidebar from './components/Sidebar.vue'
 import Topbar from './components/Topbar.vue'
-// import { storeToRefs } from 'pinia'
-// import { userAuthStore } from '../src/store/userAuth'
-// const mainStore = userAuthStore()
-// const { user } = storeToRefs(mainStore)
+import AddTask from './components/AddTask.vue';
+
+import { storeToRefs } from 'pinia'
+
+import { AddTaskStore } from './store/addTaskModal' //Импортирование стора с модальным окном Задачи
+
+//Объявление стора с мадальным окном Задачи
+const addTaskStore = AddTaskStore() 
+const { isAddTaskOpen } = storeToRefs(addTaskStore)
 
 </script>
 
@@ -14,13 +19,12 @@ import Topbar from './components/Topbar.vue'
   <div class="main__wrapper">
     <Sidebar/>
     <router-view></router-view>
+    <transition name="route">
+      <AddTask v-if="addTaskStore.isAddTaskOpen"/>
+    </transition>
   </div>
 </main>
 </template>
 
 <style lang="scss">
-section {
-  padding-top: 75px;
-  height: 100vh;
-}
 </style>

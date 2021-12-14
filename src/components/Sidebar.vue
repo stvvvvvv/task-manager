@@ -1,10 +1,25 @@
 <script setup>
-import { ref } from "vue";
+import { ref } from "vue"
+import { storeToRefs } from 'pinia'
 
-const isTasksDropdownOpen = ref(true);
+import { AddTaskStore } from '../store/addTaskModal' //Импортирование стора с модальным окном Задачи
 
-function toggleTasksDropdwon() {
+//Объявление стора с мадальным окном Задачи
+const addTaskStore = AddTaskStore() 
+const { isAddTaskOpen } = storeToRefs(addTaskStore)
+
+
+const isTasksDropdownOpen = ref(true); // Значение для дропдауна пункта "Задачи"
+
+
+//Функция для изменения значения дропдауна пункта "Задачи"
+function toggleTasksDropdwon () {
   this.isTasksDropdownOpen = !this.isTasksDropdownOpen;
+}
+
+//Открытие модального окна новой Задачи
+function toggleAddTaskOpen () {
+  addTaskStore.isAddTaskOpen = true
 }
 </script>
 
@@ -29,12 +44,15 @@ function toggleTasksDropdwon() {
         <li class="nav__tasks__item">Задача первая</li>
         <li class="nav__tasks__item">Задача вторая</li>
         <li class="nav__tasks__item">Задача третья</li>
-        <li class="nav__tasks__add">
+        <li class="nav__tasks__add" @click="toggleAddTaskOpen()">
           <i class="fas fa-plus"></i> Добавить задачу
         </li>
       </ul>
       <li class="nav__item">
         <router-link to="/" class="nav__link"><i class="fas fa-bullseye"></i> Цели</router-link>
+      </li>
+      <li class="nav__item">
+        <router-link to="/" class="nav__link"><i class="fas fa-trophy"></i> Достижения</router-link>
       </li>
     </ul>
   </nav>
