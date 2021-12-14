@@ -5,7 +5,7 @@
   <div class="topbar">
     <div class="topbar__container">
       <div class="topbar__timer">
-        <p>10:00</p>
+        <p>Текущий таймер: 10:00</p>
       </div>
     </div>
   </div>

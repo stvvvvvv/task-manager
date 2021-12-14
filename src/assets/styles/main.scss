@@ -1,11 +1,28 @@
+//<========== Шрифты ==========>
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+//</========== Шрифты ==========>
 
+
+//<========== Сброс стилей, переменные ==========>
 @import './re.scss';
 @import './vars.scss';
+@import './transitions.scss';
+//</========== Сброс стилей, переменные ==========>
 
+
+//<========== Стили компонентов ==========>
 @import './components/sidebar.scss';
 @import './components/topbar.scss';
+@import './components/add-task.scss';
+//</========== Стили компонентов ==========>
 
+
+//<========== Стили страниц ==========>
+
+//<========== Стили страниц ==========>
+
+
+//<========== Общие стили ==========>
 html {
     font-size: 10px;
 }
@@ -22,9 +39,12 @@ h1 {
 }
 
 .container {
-    max-width: 1170px;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
+
+section {
+    margin-left: 200px;
+    padding-top: 30px;
+}
+//</========== Общие стили ==========>

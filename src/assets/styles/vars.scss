@@ -17,3 +17,18 @@ $secondary-gray-light: #dee2e6;
 $secondary-gray-dark: #adb5bd;
 $secondary-black: #343a40;
 $main-green: #6ede8a;
+
+@mixin center($horizontal: true, $vertical: true) {
+  position: absolute;
+  @if ($horizontal and $vertical) {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  } @else if ($horizontal) {
+    left: 50%;
+    transform: translate(-50%, 0);
+  } @else if ($vertical) {
+    top: 50%;
+    transform: translate(0, -50%);
+  }
+}
