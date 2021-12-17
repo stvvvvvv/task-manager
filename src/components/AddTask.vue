@@ -1,21 +1,39 @@
 <script setup>
-import { ref } from "vue"
+import { ref, toRef } from "vue"
 import { storeToRefs } from 'pinia'
 
-import { AddTaskStore } from '../store/addTaskModal' //Импортирование стора с модальным окном новой Задачи
-import { SendNewTaskStore } from '../store/sendNewTask' //Отправка на сервер новой Задачи
+//Firebase
+import firebase from 'firebase/compat'
+import { db } from '../database/firebaseinit'
+import 'firebase/compat/storage'
 
 //Объявление стора с мадальным окном Задачи
+import { AddTaskStore } from '../store/addTaskModal'
 const addTaskStore = AddTaskStore() 
 const { isAddTaskOpen } = storeToRefs(addTaskStore)
-
-const sendNewTaskStore = SendNewTaskStore()
-const { inputTask, inputDescription, inputColor, inputTime, inputDate } = storeToRefs(sendNewTaskStore)
 
 //Закрытие модального окна новой Задачи
 function toggleAddTaskOpen () {
   addTaskStore.isAddTaskOpen = false
 }
+
+//Отправка данных на сервер
+const newTask = ref({
+  header: '',
+  description: '',
+  color: '#000000',
+  timer: '',
+  date: ''
+})
+
+function uploadTask () {
+      if (newTask.header !== '' && newTask.description !== '') {
+        db.collection('tasks').doc().set({
+            header: newTask.header,
+            description: newTask.description
+          })
+      }
+    }
 </script>
 
 <template>
@@ -35,7 +53,7 @@ function toggleAddTaskOpen () {
             type="text"
             class="add-task__form__input"
             id="inputTask"
-            v-model="sendNewTaskStore.inputTask"
+            v-model="newTask.header"
           />
         </div>
         <div class="add-task__form__group">
@@ -44,7 +62,7 @@ function toggleAddTaskOpen () {
             type="text-area"
             class="add-task__form__input add-task__form__textarea"
             id="inputDescription"
-            v-model="sendNewTaskStore.inputDescription"
+            v-model="newTask.description"
           />
         </div>
         <div class="add-task__form__group">
@@ -53,7 +71,7 @@ function toggleAddTaskOpen () {
             type="color" 
             class="add-task__form__input" 
             id="inputColor"
-            v-model="sendNewTaskStore.inputColor"
+            v-model="newTask.color"
           />
         </div>
         <div class="add-task__form__group">
@@ -62,7 +80,7 @@ function toggleAddTaskOpen () {
             type="time"
             class="add-task__form__input"
             id="inputTime"
-            v-model="sendNewTaskStore.inputTime"  
+            v-model="newTask.inputTime"  
           />
         </div>
         <div class="add-task__form__group">
@@ -71,10 +89,10 @@ function toggleAddTaskOpen () {
             type="datetime-local"
             class="add-task__form__input"
             id="inputDate"
-            v-model="sendNewTaskStore.inputDate"
+            v-model="newTask.inputDate"
           />
         </div>
-        <button class="add-task__form__btn">Добавить задачу</button>
+        <button @click.prevent="uploadTask()" class="add-task__form__btn">Добавить задачу</button>
       </form>
     </div>
   </div>

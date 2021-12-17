@@ -2,6 +2,8 @@
 import { ref } from "vue"
 import { storeToRefs } from 'pinia'
 
+import Task from "../components/Task.vue"
+
 import { AddTaskStore } from '../store/addTaskModal' //Импортирование стора с модальным окном Задачи
 
 //Объявление стора с мадальным окном Задачи
@@ -41,14 +43,15 @@ function toggleAddTaskOpen () {
         </i>
       </div>
       <ul class="nav__tasks" :class="{'nav__tasks-active': isTasksDropdownOpen === true}">
-        <li class="nav__tasks__item">Задача первая</li>
-        <li class="nav__tasks__item">Задача вторая</li>
-        <li class="nav__tasks__item">Задача третья</li>
+        <Task/>
+        <Task/>
+        <Task/>
+        <Task/>
         <li class="nav__tasks__add" @click="toggleAddTaskOpen()">
           <i class="fas fa-plus"></i> Добавить задачу
         </li>
       </ul>
-      <li class="nav__item">
+      <li class="nav__item mt-1">
         <router-link to="/" class="nav__link"><i class="fas fa-bullseye"></i> Цели</router-link>
       </li>
       <li class="nav__item">
