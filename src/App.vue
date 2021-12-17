@@ -15,9 +15,9 @@ const { isAddTaskOpen } = storeToRefs(addTaskStore)
 
 <template>
 <main class="main">
-  <Topbar/>
+  <Topbar v-if="!$route.meta.hideTopbar"/>
   <div class="main__wrapper">
-    <Sidebar/>
+    <Sidebar v-if="!$route.meta.hideSidebar"/>
     <router-view></router-view>
     <transition name="route">
       <AddTask v-if="addTaskStore.isAddTaskOpen"/>

@@ -1,0 +1,44 @@
+.form {
+    @include center;
+    max-width: 300px;
+    &__container {
+        width: 450px;
+        height: 400px;
+        max-width: 450px;
+        max-height: 600px;
+        padding: 30px;
+        background-color: $main-gray-light;
+        border-radius: 10px;
+    }
+    &__header {
+        text-align: center;
+    }
+    &__group {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        margin-top: 15px;
+        label {
+            font-weight: bold;
+        }
+        input {
+            width: 300px;
+            padding: 5px;
+            border-radius: 10px;
+            outline: none;
+            border: none;
+        }
+    }
+    &__btn-submit {
+        width: 100%;
+        margin-top: 25px;
+        padding: 5px;
+        color: $secondary-black;
+        border-radius: 10px;
+        border: none;
+    }
+    &__note-end {
+        margin-top: 15px;
+        text-align: center;
+    }
+}

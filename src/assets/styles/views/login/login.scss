@@ -1,0 +1,16 @@
+.login {
+    @include center;
+    &__nav {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 15px;
+        &-log, &-reg{
+            padding: 8px;
+            background-color: $secondary-gray-light;
+            color: $text-gray-dark;
+            border-radius: 10px;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    }
+}
