@@ -55,6 +55,9 @@ function toggleAddTaskOpen () {
         <router-link to="/" class="nav__link"><i class="fas fa-bullseye"></i> Цели</router-link>
       </li>
       <li class="nav__item">
+        <router-link to="/" class="nav__link"><i class="far fa-chart-bar"></i> Мое время</router-link>
+      </li>
+      <li class="nav__item">
         <router-link to="/" class="nav__link"><i class="fas fa-trophy"></i> Достижения</router-link>
       </li>
     </ul>

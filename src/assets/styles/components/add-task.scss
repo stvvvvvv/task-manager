@@ -8,9 +8,9 @@
     z-index: 2;
     &__container {
         @include center;
+        width: 370px;
+        height: 450px;
         padding: 30px;
-        max-height: 600px;
-        max-width: 450px;
         background-color: $main-gray-light;
         border-radius: 10px;
     }
@@ -24,6 +24,22 @@
         }
     }
     &__form {
+        &__input__group {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        &__category-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        &__step {
+            height: 420px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
         &__header {
             text-align: center;
             margin: 20px 0;
