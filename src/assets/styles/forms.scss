@@ -1,9 +1,15 @@
+// $error-red: #ef476f;
+// $main-gray-light: #e9ecef;
+// $secondary-gray-dark: #adb5bd;
+// $blue: #2755A2;
+
 .form {
+    box-sizing: border-box;
     @include center;
     max-width: 300px;
     &__container {
         width: 450px;
-        height: 400px;
+        height: 450px;
         max-width: 450px;
         max-height: 600px;
         padding: 30px;
@@ -15,27 +21,94 @@
     }
     &__group {
         position: relative;
+        box-sizing: border-box;
         display: flex;
         flex-direction: column;
         margin-top: 15px;
         label {
-            font-weight: bold;
+            margin-left: 5px;
         }
         input {
+            position: relative;
             width: 300px;
             padding: 5px;
+            padding-left: 28px;
             border-radius: 10px;
             outline: none;
             border: none;
         }
     }
+    &__input-group {
+        position: relative;
+        .input-icon {
+            position: absolute;
+            z-index: 2;
+            top: calc(50% - 7px);
+            left: 8px;
+            color:  #757577;
+            &_error {
+                color: $error-red;
+            }
+        }
+    }
+    &__cbx-label{
+        cursor: pointer;
+        margin: 5px 0;
+        padding: 0 5px;
+        transition: 0.2s all;
+        border: 2px solid #111;
+        border-radius: 20px;
+    }
+    &__cbx-mass{
+        opacity: 0;
+    }
+    &__btn-group {
+        display: flex;
+        justify-content: space-between;
+        margin-top: -10px;
+    }
+    &__btn-next {
+        width: 75px;
+        float: right;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        padding: 8px;
+        color: $main-gray-light;
+        background-color: $blue;
+        border-radius: 10px;
+        border: none;
+        transition: all ease 0.3s;
+        cursor: pointer;
+    }
+    &__btn-prev {
+        width: 75px;
+        float: left;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        padding: 8px;
+        color: $main-gray-light;
+        background-color: $text-gray-dark;
+        border-radius: 10px;
+        border: none;
+        transition: all ease 0.3s;
+        cursor: pointer;
+    }
+    
     &__btn-submit {
         width: 100%;
         margin-top: 25px;
-        padding: 5px;
-        color: $secondary-black;
+        padding: 8px;
+        color: $main-gray-light;
+        background-color: $blue;
         border-radius: 10px;
         border: none;
+        transition: all ease 0.3s;
+        cursor: pointer;
+        &:disabled {
+            color: $text-gray-dark;
+            background-color: $secondary-gray-dark;
+            cursor: default;
+        }
     }
     &__note-end {
         margin-top: 15px;

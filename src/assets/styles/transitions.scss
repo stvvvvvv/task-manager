@@ -12,3 +12,32 @@
 .route-leave-active {
   transition: all 0.3s ease-in;
 }
+
+//Log transition
+.log-transition-enter-from {
+  opacity: 0;
+}
+
+.log-transition-enter-from {
+  opacity: 0;
+}
+.log-transition-enter-active{
+  transition: all 0.2s ease-out;
+}
+.log-transition-leave-to {
+  opacity: 0;
+}
+.log-transition-leave-active {
+  transition: all 0.2s ease-in;
+}
+
+//Popup transition {
+.popup-animation-enter-active,
+.popup-animation-leave-active {
+    transition: opacity 0.3s ease;
+}
+
+.popup-animation-enter-from,
+.popup-animation-leave-to {
+    opacity: 0;
+}
