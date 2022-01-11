@@ -11,7 +11,10 @@ import { db } from '../database/firebaseinit'
 import { AddTaskStore } from '../store/addTaskModal'
 import { PopupStore } from '../store/popupStore'
 import { UserStore } from '../store/userStore'
+import { GetTasksStore } from "../store/getTasks"
 
+import AddTaskOption from "./AddTaskOption.vue"
+import AddTaskStage from "./AddTaskStage.vue"
 
 //Объявление стора с мадальным окном Задачи
 const addTaskStore = AddTaskStore() 
@@ -20,12 +23,13 @@ const { isAddTaskOpen } = storeToRefs(addTaskStore)
 
 // Попап стор
 const popupStore = PopupStore()
-const { popupMsg, popupImg, isLoading } = storeToRefs(popupStore)
+let { popupMsg, popupImg, isLoading, popupShow } = storeToRefs(popupStore)
 
 // User стор
 const userStore = UserStore()
 
-
+// Task store
+const getTaskStore = GetTasksStore()
 
 //Закрытие модального окна новой Задачи
 function toggleAddTaskOpen () {
@@ -37,27 +41,50 @@ let formStepCounter = ref(0)
 
 
 //Категории задач
+const categories = reactive(['Работа', 'Учеба', 'Финансы', 'Отдых'])
+let optionValue = ref('')
+
+
+//Удаление категории по клику
+function deliteStage (index) {
+  newTask.stages.splice(index, 1)
+}
+
 
 //Отправка данных на сервер
 const newTask = reactive({
-  header: '',
-  description: '',
-  category: '',
-  color: '#000000',
-  timer: '',
-  date: ''
+  header: '',         // Название задачи
+  description: '',    // Описание задачи
+  category: '',       // Категория задачи
+  deadline: '',       // Дедлайн
+  color: '#000000',   // Цвет задачи
+  stages: [],         // Этапы задачи
 })
 
-function uploadTask () {
+async function uploadTask () {
   if (userStore.userData) {
-    db.collection('users').doc(userStore.userData.uid).collection('tasks')
+    const timestamp = await Date.now()
+    popupStore.isLoading = true
+    await db.collection('users').doc(userStore.userData.uid).collection('tasks')
     .add ({
       header: newTask.header,
       description: newTask.description,
+      category: newTask.category,
       color: newTask.color,
-      timer: newTask.timer,
-      date: newTask.date
+      stages: newTask.stages,
+      deadline: newTask.deadline,
+      taskDate: timestamp
     })
+    await getTaskStore.getTasks(userStore.userData.uid)
+    popupStore.isLoading = false
+    popupStore.popupMsg = "Задача успешно создана!"
+    popupStore.popupImg = true
+    popupStore.popupShow = true
+    setTimeout(() => {
+      popupStore.popupMsg = ""
+      popupStore.popupImg = false
+      popupStore.popupShow = false
+    }, 2000)
   }
 }
 </script>
@@ -73,7 +100,7 @@ function uploadTask () {
       </div>
       <form class="add-task__form">
         <div class="add-task__form__first-step add-task__form__step" v-if="formStepCounter === 0">
-          <div class="add-task__form__input-gr">
+          <div class="add-task__form__input-group">
             <h2 class="add-task__form__header">Добавление новой задачи</h2>
             <div class="add-task__form__group">
               <label for="inputTask" class="add-task__form__label">Введите задачу</label>
@@ -95,50 +122,29 @@ function uploadTask () {
             </div>
             <div class="add-task__form__group">
               <label for="inputCategory" class="add-task__form__label">Выберете категорию</label>
-              <div class="add-task__form__category-group">
-                <input
-                  class="form__cbx-mass"
-                  type="checkbox"
-                  name="react"
-                  id="react"
+              <select name="inputCategory" id="inputCategory" v-model="newTask.category">
+                <AddTaskOption
+                  v-for="(category, index) in categories"
+                  :key="index"
+                  :category="category"
                 />
-                <label class="form__cbx-label" @click="activeVue = !activeVue" :class="{ active: activeVue }"  for="work">Работа</label>
+              </select>
+              <div class="add-task__form__group p-relative">
                 <input
-                  class="form__cbx-mass"
-                  type="checkbox"
-                  name="work"
-                  id="work"
-                />
-                <label  class="form__cbx-label" @click="activeAngular = !activeAngular" :class="{ active: activeAngular }"  for="learning">Учеба</label>
-                <input
-                  class="form__cbx-mass"
-                  type="checkbox"
-                  name="learning"
-                  id="learning"
-                />
-                <label  class="form__cbx-label" @click="activeNode = !activeNode" :class="{ active: activeNode }"  for="node">Финансы</label>
-                <input
-                  class="form__cbx-mass"
-                  type="checkbox"
-                  name="finance"
-                  id="finance"
-                />
-                <label class="form__cbx-label" @click="activeJs = !activeJs" :class="{ active: activeJs }"  for="js">Отдых</label>
-                <input
-                  class="form__cbx-mass"
-                  type="checkbox"
-                  name="js"
-                  id="js"
-                />
-                <label class="form__cbx-label" @click="activePhp = !activePhp" :class="{ active: activePhp }" for="php"></label>
-                <input
-                  class="form__cbx-mass"
-                  type="checkbox"
-                  name="php"
-                  id="php"
-                />
+                  type="text"
+                  placeholder="Добавить свою категорию"
+                  class="add-task__form__input"
+                  v-model="optionValue"
+                >
+                <button
+                  class="add-task__form__btn-add"
+                  @click.prevent="categories.unshift(optionValue), optionValue = ''"
+                >
+                  Добавить
+                </button>
               </div>
             </div>
+            
           </div>
           <div class="form__btn-gruop">
             <button class="form__btn-next" @click.prevent="formStepCounter++">Далее</button>
@@ -156,31 +162,43 @@ function uploadTask () {
                 v-model="newTask.color"
               />
             </div>
+            <div class="add-task__form__group p-relative">
+                <input
+                  type="text"
+                  placeholder="Добавить этап"
+                  class="add-task__form__input"
+                  v-model="stage"
+                >
+                <button
+                  class="add-task__form__btn-add"
+                  @click.prevent="newTask.stages.unshift(stage), stage = ''"
+                >
+                  Добавить
+                </button>
+                <div class="add-task__form__stages mt-05" v-if="newTask.stages">
+                  <AddTaskStage 
+                    v-for="(stage, index) in newTask.stages"
+                    :key="index"
+                    :stage="stage"
+                    :index="index"
+                    @deliteStage="deliteStage"
+                  />
+                </div>
+              </div>
             <div class="add-task__form__group">
-              <label for="inputTime" class="add-task__form__label">Таймер</label>
-              <input
-                type="time"
-                class="add-task__form__input"
-                id="inputTime"
-                v-model="newTask.inputTime"  
-              />
-            </div>
-            <div class="add-task__form__group">
-              <label for="inputDate" class="add-task__form__label">Время выполнения</label>
+              <label for="inputDate" class="add-task__form__label">Дедлайн</label>
               <input
                 type="datetime-local"
                 class="add-task__form__input"
                 id="inputDate"
-                v-model="newTask.inputDate"
+                v-model="newTask.deadline"
               />
             </div>
           </div>
           <div class="form__btn-group">
             <button class="form__btn-prev" @click.prevent="formStepCounter--">Назад</button>
-            <button class="form__btn-next" @click.prevent="formStepCounter++">Далее</button>
+            <button @click.prevent="uploadTask()" class="add-task__form__btn">Добавить задачу</button>
           </div>
-          
-          <!-- <button @click.prevent="uploadTask()" class="add-task__form__btn">Добавить задачу</button> -->
         </div>
       </form>
     </div>

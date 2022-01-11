@@ -1,4 +1,10 @@
-<script>
+<script setup>
+import { storeToRefs } from 'pinia'
+import { PopupStore } from '../store/popupStore'
+
+const popupStore = PopupStore()
+const { popupMsg, popupImg } = storeToRefs(popupStore)
+
 </script>
 
 <template>
@@ -9,7 +15,7 @@
           class="popup__img"
           src="../assets/icons/check.svg"
           alt="Успешно"
-          v-if="popupData.img === true"
+          v-if="popupStore.popupImg === true"
         />
         <img
           class="popup__img"
@@ -19,7 +25,7 @@
         />
       </div>
       <div class="popup__msg">
-        <p>{{ popupData.msg }}</p>
+        <p>{{ popupStore.popupMsg }}</p>
       </div>
     </div>
   </div>

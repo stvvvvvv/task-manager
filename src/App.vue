@@ -9,6 +9,7 @@ import { db } from "./database/firebaseinit"
 import { AddTaskStore } from "./store/addTaskModal"
 import { PopupStore } from "./store/popupStore" 
 import { UserStore } from "./store/userStore"
+import { GetTasksStore } from "./store/getTasks"
 
 // Компоненты
 import Sidebar from "./components/Sidebar.vue"
@@ -28,6 +29,8 @@ const { popupMsg, popupImg, isLoading, popupShow } = storeToRefs(popupStore)
 // Объявление стора с информацией о пользователе
 const userStore = UserStore()
 
+const getTaskStore = GetTasksStore()
+
 // Получение инофрмции о пользователе 
 userStore.getUserInfo()
 </script>
@@ -45,7 +48,7 @@ userStore.getUserInfo()
         <Popup v-if="popupShow" />
       </transition>
       <transition name="popup-animation">
-        <Loading v-if="popupStore.isLoading" />
+        <Loading v-if="popupStore.isLoading || getTaskStore.tasks === null" />
       </transition>
     </div>
   </main>

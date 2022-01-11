@@ -18,6 +18,7 @@ $secondary-gray-dark: #adb5bd;
 $secondary-black: #343a40;
 $main-green: #6ede8a;
 $error-red: #ef476f;
+
 @mixin center($horizontal: true, $vertical: true) {
   position: absolute;
   @if ($horizontal and $vertical) {
@@ -32,3 +33,4 @@ $error-red: #ef476f;
     transform: translate(0, -50%);
   }
 }
+

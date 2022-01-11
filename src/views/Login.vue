@@ -233,7 +233,8 @@ function logInUser () {
                 :class="{
                   'input-icon_error': v$.reg.passConfirm.$error === true,
                 }"
-              ></i>
+              >
+              </i>
               <input
                 type="password"
                 placeholder="Подтвердите пароль"
