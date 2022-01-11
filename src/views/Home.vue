@@ -2,15 +2,13 @@
 </script>
 
 <template>
-  <div class="content">
-    <div class="container">
-      <section>
-        <h1>Привет</h1>
-      </section>
-      <section>
-        <h1>World</h1>
-      </section>
-    </div>
+  <div class="page">
+    <section>
+      <h1>Привет</h1>
+    </section>
+    <section>
+      <h1>World</h1>
+    </section>
   </div>
 </template>
 
